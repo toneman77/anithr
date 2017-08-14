@@ -8,7 +8,7 @@ curl -s "${KONGURL}getRankings&ranking_index=0&ranking_id=event_guild_siege" --c
 curl -s "${KONGURL}getRankings&ranking_index=1&ranking_id=event_guild_siege" --compressed -o /tmp/theirlist.json && echo "."
 
 # island overview: 
-curl -s "getGuildSiegeStatus" --compressed -o /tmp/islands.json && echo "."
+curl -s "${KONGURL}getGuildSiegeStatus" --compressed -o /tmp/islands.json && echo "."
 
 
 # our attacks
