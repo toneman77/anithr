@@ -25,7 +25,6 @@ echo
 
 # report
 # our islands
-# doesnt work anymore. kong changed sth
 echo "#### our islands ####"
 jq -r '.guild_siege_status.locations[] | .data.name +","+ .hp' /tmp/islands.json 
 echo
