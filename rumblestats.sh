@@ -1,5 +1,8 @@
 #!/bin/bash 
-#gives us USERID, PASSW and KONGURL
+# start without parameters: cronjob that writes all player points to a file
+# start with parameter "x" print out short stats
+
+# gives us USERID, PASSW and KONGURL
 source $HOME/scripts/kong.auth
 
 if [[ $1 = "x" ]]
