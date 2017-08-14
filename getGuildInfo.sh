@@ -11,6 +11,7 @@ jq -r '.rankings.data[] | .name +","+ .user_id' ${TMP} > /tmp/g.csv
 echo "id,name,level,xp,rare,epic,legs,mythic" > /tmp/x.json 
 
 # magic!
+# you can omit that if you only want the players
 for i in $(sed "s/.*,//" /tmp/g.csv)
 do
     # get user info
