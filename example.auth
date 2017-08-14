@@ -1,4 +1,4 @@
 # insert your credentials below
 USERID=1234567 
 PASSW=deadbeef0011223344deadbeef001122
-KONGURL="https://cb-live.synapse-games.com/api.php?user_id=${USERID}&password=${PASSW}&message="
+KONGURL="https://xxcbxxx-xxxxlive.syxxxxxxxxxes.com/api.php?user_id=${USERID}&password=${PASSW}&message="
