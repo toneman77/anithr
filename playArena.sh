@@ -15,7 +15,7 @@ iWant=( 1001 2002 3001 2001 1003 2003 1004 2005 3004 5019 )
 
 # do we have loot crates?
 curl -s "${KONGURL}init" -o /tmp/ar.json
-numCrates=$(jq -r '.item_data."30002".usable' /tmp/ar.json)
+numCrates=$(jq -r '.user_items."30002".number' /tmp/ar.json)
 while [[ $numCrates -gt 0 ]]
 do
     curl -s "${KONGURL}useAdLockedItem&item_id=30002" -o /dev/null
