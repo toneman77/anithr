@@ -53,9 +53,13 @@ do
     #     exit
     # fi
 
+    # dropped too fast, so additional random number decides if we still play a match
+    RANDOM=$(date +%s) ; 
+    override=$((RANDOM%100))
+
     # one that we want?
     sleep 4
-    if [[ " ${iWant[@]} " =~ " ${currOpp} " ]]
+    if [[ " ${iWant[@]} " =~ " ${currOpp} " || $override -gt 60 ]]
     then
         # play that match!
         echo -n ", PLAY"
