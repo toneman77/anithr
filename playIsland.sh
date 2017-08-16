@@ -18,4 +18,4 @@ do
     sleep 3
     curl -s "${KONGURL}playCard&skip=True" --compressed > /dev/null 2>&1
 done
-logger "[TONE] played $i matches"
+logger "[TONE] played $i adventure matches"
