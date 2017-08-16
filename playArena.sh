@@ -8,10 +8,9 @@ source "${HOME}/scripts/kong.auth"
 # startHuntingBattle
 # playCard
 
-# peter 1001, stan 2002, bob 3001, roger 2001
-# brian 1003, steve 2003, consuela 1004, ricky 2005
-# gene 3004, zapp 5019
-iWant=( 1001 2002 3001 2001 1003 2003 1004 2005 3004 5019 )
+# peter 1001, brian 1003, consuela 1004, roger 2001 stan 2002, 
+# steve 2003, ricky 2005 bob 3001, gene 3004, zapp 5019
+iWant=( 1001 1003 1004 2001 2002 2003 2005 3001 3004 5019 )
 
 # do we have loot crates?
 curl -s "${KONGURL}init" -o /tmp/ar.json
