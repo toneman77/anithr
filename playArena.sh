@@ -1,5 +1,6 @@
 #!/bin/bash 
 #gives us USERID, PASSW and KONGURL
+logger "[TONE] auto-arena start"
 source "${HOME}/scripts/kong.auth"
 
 # order in real life AT
@@ -14,7 +15,7 @@ iWant=( 1001 1003 1004 2001 2002 2003 2005 3001 3004 5019 )
 
 # do we have loot crates?
 curl -s "${KONGURL}init" -o /tmp/ar.json
-numCrates=$(jq -r '.user_items."30002".number' /tmp/ar.json)
+numCrates=$(jq -r ".user_items.\"30002\".number" /tmp/ar.json)
 while [[ $numCrates -gt 0 ]]
 do
     curl -s "${KONGURL}useAdLockedItem&item_id=30002" -o /dev/null
@@ -31,7 +32,7 @@ numLoops=$remainingBattles
 echo "remaining arena battles: ${numLoops}"
 
 # the loop
-for (( i=1; i<=numLoops; i++ ))
+for (( i=0; i<numLoops; i++ ))
 do
     # get our initial opp
     sleep 2
@@ -59,15 +60,15 @@ do
 
     # one that we want?
     sleep 4
-    if [[ " ${iWant[@]} " =~ " ${currOpp} " || $override -gt 60 ]]
+    if [[ " ${iWant[@]} " =~ " ${currOpp} " || $override -gt 40 ]]
     then
         # play that match!
         echo -n ", PLAY"
         curl -s "${KONGURL}setUserFlag&flag=autopilot&value=1" -o /dev/null
         sleep 1
         curl -s "${KONGURL}playCard&skip=true" --compressed -o /tmp/ar.json
-        gold=$(jq -r '.battle_data.rewards."0".gold' /tmp/ar.json)
-        points=$(jq -r '.battle_data.rewards."0".event_points' /tmp/ar.json)
+        gold=$(jq -r ".battle_data.rewards.\"0\".gold" /tmp/ar.json)
+        points=$(jq -r ".battle_data.rewards.\"0\".event_points" /tmp/ar.json)
         echo -n ", $gold gold, $points event points"
     else
         # skip right over!
@@ -85,4 +86,4 @@ do
 done
 
 exit
-logger "[TONE] played $i arenas"
+logger "[TONE] played $numLoops arena matches"
