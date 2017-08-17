@@ -84,6 +84,5 @@ do
     echo "."
 
 done
-
-exit
 logger "[TONE] played $numLoops arena matches"
+
