@@ -12,12 +12,14 @@ else
     imashell=0
 fi
 if [[ $imashell = 0 ]]; then
-     sleep 53
+     sleep 55
 fi
 curl -s "${KONGURL}getGuildWarStatus" --compressed -o /tmp/out.json && \
 curl -s "${KONGURL}getRankings&ranking_index=0&ranking_id=event_guild_war" --compressed -o /tmp/rank.json && \
 curl -s "${KONGURL}getRankings&ranking_index=1&ranking_id=event_guild_war" --compressed -o /tmp/rankopp.json
 
+t=$(jq ".guild_war_event_data.id" /tmp/out.json | sed "s/\"//g")
+RUMBLENO=$((t-50000))
 FOLD=/mnt/thor/multimedia/stats
 ROUND="$(jq -r '.guild_war_matches[] | "Round " + (.id+1|tostring)' /tmp/out.json | sort -nk2 | tail -1)"
 weAre=$(jq -r '.guild_war_current_match| .us_name' /tmp/out.json)
@@ -47,9 +49,11 @@ ourPredict=$(echo "$ourAverage * 50" | bc)
 theirPredict=$(echo "$theirAverage *50" | bc)
 ROUND=$(echo $ROUND | sed 's/[^0-9]*//g')
 if [[ $imashell = 0 ]]; then
-    echo ROUND,$ROUND > "${FOLD}/Our-Round ${ROUND}.csv"
-    echo $remainingTimeS time left,vs $theyAre >> "${FOLD}/Our-Round ${ROUND}.csv"
-    jq -r '.rankings.data[] | .name + "," + .stat' /tmp/rank.json|sort >> "${FOLD}/Our-Round ${ROUND}.csv"
+    FILENAME="${FOLD}/Rumble ${RUMBLENO}-Round ${ROUND}.csv"
+    echo RUMBLE,$RUMBLENO > "${FILENAME}"
+    echo ROUND,$ROUND >> "${FILENAME}"
+    echo $remainingTimeS time left,vs $theyAre >> "${FILENAME}"
+    jq -r '.rankings.data[] | .name + "," + .stat' /tmp/rank.json|sort >> "${FILENAME}"
 else
     echo "=== MATCH REPORT ==="
     echo Current round $ROUND, $weAre vs $theyAre 
